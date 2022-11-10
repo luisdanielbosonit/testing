@@ -1,14 +1,14 @@
 package com.bosonit.training.testing.service;
 
 
+import com.bosonit.training.testing.Exception.EntityNotFoundException;
 import com.bosonit.training.testing.dtos.PersonaINputDto;
 import com.bosonit.training.testing.dtos.PersonaOUTputDto;
 import com.bosonit.training.testing.entity.Persona;
 import com.bosonit.training.testing.repository.PersonaDao;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.function.Executable;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -52,14 +52,20 @@ class ServiceImplPersonaTest {
 //        autoCloseable.close();
 //    }
 
-
+    @DisplayName("Test para Ver Lista de personas")
     @Test
     void CanViewallPerson() {
 //        given
+        List<Persona> peopleViewList = new ArrayList<>();
+        peopleViewList.add(newPerson);
+        when(personaDao.findAll()).thenReturn(peopleViewList);
 //        when
-            underTest.viewall();
+           List<PersonaOUTputDto> ouTputDtoList= underTest.viewall();
 //        then
         verify(personaDao).findAll();
+        assertThat(ouTputDtoList).isNotNull();
+        assertThat(ouTputDtoList.size()).isEqualTo(1);
+        assertThat(ouTputDtoList).isExactlyInstanceOf(ArrayList.class);
     }
 
 
@@ -115,13 +121,15 @@ class ServiceImplPersonaTest {
         verify(personaDao).delete(newPerson);
     }
 
+    @DisplayName("Test para guardar persona")
     @Test
     void CanLoadpersona() throws Exception {
 //        give
 //        when
-        underTest.loadpersona(newPersonaInputDto);
+        PersonaOUTputDto personLoad = underTest.loadpersona(newPersonaInputDto);
 //        then
-        assertThat(newPersonaPOutputDto).isNull();
+        assertThat(personLoad).isNotNull();
+        assertThat(personLoad.getPerson_id()).isGreaterThan(0);
 
 
     }
