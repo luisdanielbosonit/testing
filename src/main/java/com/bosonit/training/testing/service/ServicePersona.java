@@ -2,10 +2,11 @@ package com.bosonit.training.testing.service;
 
 import com.bosonit.training.testing.dtos.PersonaINputDto;
 import com.bosonit.training.testing.dtos.PersonaOUTputDto;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Component
 @Service
 public interface ServicePersona {
 

@@ -46,8 +46,6 @@ public class ServiceImplPersona implements ServicePersona {
         Optional<Persona> personaActu= Optional.ofNullable(personaDao.findById(id).orElseThrow(() -> {
             throw new EntityNotFoundException("The person with Id: " + id + " does not exist in the database", HttpStatus.FOUND, new Date());
         }));
-
-
         if(personaActu.isEmpty())
             throw new EntityNotFoundException("Person no exist",HttpStatus.FOUND,new Date());
         if (personaINputDto.getUsername()==null)

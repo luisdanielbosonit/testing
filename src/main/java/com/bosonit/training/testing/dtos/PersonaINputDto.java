@@ -27,8 +27,8 @@ public class PersonaINputDto {
     public Persona transformIntoPersona(){
         Persona person = new Persona();
         person.setId_persona(this.id);
-        person.setUsername(this.username);
         person.setPassword(this.password);
+        person.setUsername(this.username);
         person.setName(this.name);
         person.setSurname(this.surname);
         person.setCompany_email(this.company_email);
